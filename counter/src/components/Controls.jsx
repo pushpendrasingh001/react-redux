@@ -30,10 +30,10 @@ dispatch({type:'DECREMENT'})
     <a href="#" className="btn btn-secondary margin" onClick={RESET}>Reset</a>
     </div>
 
-<div class="input-group">
-  <input type="text" class="form-control " placeholder="Enter Number Only"ref={inputElement} />
-  <button class="btn btn-outline-primary button_size " type="button"  onClick={Add}>Add</button>
-  <button class="btn btn-outline-danger button_size " type="button" onClick={Subtract}>Subtract</button>
+<div className="input-group">
+  <input type="text" className="form-control " placeholder="Enter Number Only"ref={inputElement} />
+  <button className="btn btn-outline-primary button_size " type="button"  onClick={Add}>Add</button>
+  <button className="btn btn-outline-danger button_size " type="button" onClick={Subtract}>Subtract</button>
 </div>
     </>
   )
