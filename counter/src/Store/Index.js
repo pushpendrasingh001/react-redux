@@ -1,34 +1,36 @@
+import { createStore } from 'redux';
+import { persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
-import {createStore} from 'redux'
-const INITIALVALUE={
-  counter:0
-}
-const counterReducer=(store=INITIALVALUE,action)=>{
-  let newStore=store;
- if(action.type==='INCREMENT')
- {
-  newStore={counter:store.counter+1}
- }
- else if(action.type==='DECREMENT')
-  {
-   newStore={counter:store.counter-1}
-  }
-  else if(action.type==='RESET')
-    {
-     newStore={counter:store.counter=0}
-    }
-    else if(action.type==='ADD')
-      {
-       newStore={counter:store.counter+Number(action.payload.num)}
-      }
-      else if(action.type==='SUBTRACT')
-        {
-         newStore={counter:store.counter-Number(action.payload.num)}
-        }
-    
-    
+const persistConfig = {
+  key: 'root',
+  storage,
   
-  return newStore
-}
-const counterStore=createStore(counterReducer)
-export default counterStore
+};
+
+const INITIAL_VALUE = {
+  counter: 0,
+};
+
+const counterReducer = (store = INITIAL_VALUE, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return { counter: store.counter + 1 };
+    case 'DECREMENT':
+      return { counter: store.counter - 1 };
+    case 'RESET':
+      return { counter: 0 };
+    case 'ADD':
+      return { counter: store.counter + Number(action.payload.num) };
+    case 'SUBTRACT':
+      return { counter: store.counter - Number(action.payload.num) };
+    default:
+      return store;
+  }
+};
+
+const persistedReducer = persistReducer(persistConfig, counterReducer);
+const counterStore = createStore(persistedReducer);
+const persistor = persistStore(counterStore);
+
+export { counterStore, persistor };
